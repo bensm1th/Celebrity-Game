@@ -40,7 +40,13 @@ router.post('/games/new', function(req, res) {
 });
 //SHOW 
 router.get('/games/:id', function(req, res) {
-    res.render('games/show');
+    Game.findById(req.params.id, function(err, foundGame) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('games/show', {game: foundGame});
+        }
+    });
 });
 //EDIT
 //UPDATE

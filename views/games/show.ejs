@@ -1,11 +1,14 @@
 <% include ../partials/header %>
     <h1>WELCOME TO THIS GAME</h1>
+    <p><%= game.teamOne %></p>
+    <h1>against</h1>
+    <p><%= game.teamTwo %></p>
     <h4>Sign Up! </h4>
     <% if (!currentUser) { %>
-    <form action="" method="POST">
+    <form action="/games/<%= game._id %>/players" method="POST">
         <input type="text" name="username" placeholder="username">
         <input type="password" name="password" placeholder="password">
-        <input type="button" value="Submit">
+        <button>Submit</button>
     </form>
     <% } %>
 <% include ../partials/footer %>

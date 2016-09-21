@@ -6,7 +6,10 @@ var playerSchema = new mongoose.Schema({
     password: String,
     isManager: Boolean,
     team: String,
-    gameSession: String,
+    gameSession: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Game"
+    },
     pin: Number
 });
 
