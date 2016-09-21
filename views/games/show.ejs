@@ -1,6 +1,7 @@
 <% include ../partials/header %>
     <div class="ui container">
-        <h1>WELCOME TO THIS GAME</h1>
+        <h1>WELCOME TO THE CELEBRITY GAME: <span><%= game.teamOne %></span> vs. <span><%= game.teamTwo %></span> </h1>
+        <h2>Your PIN is: <span><%= game.pin %></span> </h2>
         
         <h1><%= game.teamOne %></h1>
             <% players.forEach(player=> { %>

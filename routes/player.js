@@ -8,11 +8,23 @@ var express     = require('express'),
 
 //INDEX ROUTE
 router.get('/', function(req, res) {
-    res.redirect('/index'); 
+    res.redirect('/index');
 })
 
 router.get('/index', function(req, res) {
     res.render('index');
+});
+//NEW ROUTE
+router.post('/players/new', function(req, res) {
+    var pin = req.body.pin;
+    
+    Game.find({pin: pin}, function(err, foundGame) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/games/' + foundGame[0]._id);
+        }
+    });
 });
 
 //CREATE ROUTE 
@@ -63,7 +75,7 @@ router.get('/logout', function(req, res) {
     //req.flash('success', 'logged you out');
     res.redirect('/games')
 });
-
+/*
 //SHOW ROUTE 
 router.get('/players/:id', function(req, res) {
     res.send('YOU HIT THE SHOW ROUTE');
@@ -82,7 +94,7 @@ router.post('/players/:id/edit', function(req, res) {
 router.delete('/players/:id', function(req, res) {
     res.send('YOU HIT THE DELETE ROUTE');
 });
-
+*/
 
 module.exports = router;
 

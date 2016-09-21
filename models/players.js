@@ -10,7 +10,7 @@ var playerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Game"
     },
-    pin: Number
+    pin: String
 });
 
 playerSchema.plugin(passportLocalMongoose);
