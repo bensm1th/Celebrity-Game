@@ -10,6 +10,7 @@ var express         = require('express'),
     port            = process.env.PORT || '3000',
     config          = require('./config/config'),
     Player          = require('./models/players'),
+    Game            = require('./models/games'),
     //ADD ROUTEs
     playerRoutes    = require('./routes/player'),
     gameRoutes      = require('./routes/game');
@@ -28,11 +29,19 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(Player.authenticate()));
 passport.serializeUser(Player.serializeUser());
 passport.deserializeUser(Player.deserializeUser());
+
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+});
 
 app.use(playerRoutes);
 app.use(gameRoutes);

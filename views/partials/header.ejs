@@ -12,14 +12,18 @@
                 Players
             </a>
             <div class="right menu">
+                 <% if (!currentUser) { %>
                 <a href="/players/new" class="ui item">
                     Sign Up
                 </a>
                 <a href="/players/login" class="ui item">
                     Log In
                 </a>
+                <% } else { %>
+                <a href="#" class="ui item"> Signed in as <%= currentUser.username %></a>
                 <a href="/players/logout"  class="ui item">
                     Logout
                 </a>
+                <% } %>
             </div>
         </div>

@@ -6,7 +6,8 @@ var playerSchema = new mongoose.Schema({
     password: String,
     isManager: Boolean,
     team: String,
-    gameSession: String
+    gameSession: String,
+    pin: Number
 });
 
 playerSchema.plugin(passportLocalMongoose);

@@ -1,6 +1,7 @@
-var express = require('express'),
-    router  = express.Router( {mergeParams: true} ),
-    Player  = require('../models/players');
+var express     = require('express'),
+    router      = express.Router( {mergeParams: true} ),
+    passport    = require('passport'),
+    Player      = require('../models/players');
 
 //RESTfult ROUTES
 
@@ -15,12 +16,25 @@ router.get('/players', function(req, res) {
 
 //NEW ROUTE 
 router.get('/players/new', function(req, res) {
+
     res.render('players/new');
 });
 
 //CREATE ROUTE 
 router.post('/players/new', function(req, res) {
-    res.send('YOU HIT THE CREATE ROUTE');
+    var newPlayer = new Player( {username: req.body.username } );
+
+    Player.register(newPlayer, req.body.password, function(err, player) {
+        if (err) {
+            console.log(err);
+            //req.flash('error', err.message);
+            return res.render('index');
+        }
+        passport.authenticate('local')(req, res, function() {
+            //req.flash('success', "Welcom to the Celebrity Game" + user.username);
+            res.redirect('/players');
+        });
+    });
 });
 
 //SHOW ROUTE 

@@ -1,0 +1,11 @@
+<% include ../partials/header %>
+<h1>YOU ARE IN A NEW GAME</h1>
+<ul>
+<% games.forEach(game=> { %>
+    <li><%= game.teamOne %></li>
+    <li><%= game.teamTwo %></li>
+    <li><%= game.pin %></li>
+    <a href="/games/<%= game._id %>" >Go to this game</a>
+<% }); %>
+</ul>
+<% include ../partials/footer %>
