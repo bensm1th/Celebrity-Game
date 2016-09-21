@@ -1,0 +1,26 @@
+<% include ./partials/header %>
+<div class="ui container">
+    <div class="ui center aligned basic segment">
+        <h1>
+            JOIN A GAME
+        </h1>
+        <form class="ui form" action="/players/new">
+            <div class="ui left icon input">
+                <i class="pin icon"></i>
+                <input type="text" placeholder="Pin #">
+                <input type="text" placeholder="User Name">
+                <input type="text" placeholder="Passowrd">
+            </div>
+        </form>
+        <div class="ui horizontal divider">
+        Or
+    </div>
+        <h1>
+            <a href="/players/games/new">
+                START A BRAND NEW GAME
+            </a>
+        </h1>
+    </div>
+</div>
+<% include ./partials/footer %>
+
