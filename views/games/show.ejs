@@ -1,14 +1,51 @@
 <% include ../partials/header %>
-    <h1>WELCOME TO THIS GAME</h1>
-    <p><%= game.teamOne %></p>
-    <h1>against</h1>
-    <p><%= game.teamTwo %></p>
-    <h4>Sign Up! </h4>
+    <div class="ui container">
+        <h1>WELCOME TO THIS GAME</h1>
+        
+        <h1><%= game.teamOne %></h1>
+            <% players.forEach(player=> { %>
+                
+                <% if (player.teamName == game.teamOne) { %>
+                    <li> <%= player.username %>  </li>
+                <% } %>
+            <% }); %>
+        <h4>against</h4>
+        <h1><%= game.teamTwo %></h1>
+            <% players.forEach(player=> {  %>
+                <% if (player.teamName == game.teamTwo) { %>
+                    <li> <%= player.username %> </li>
+                <% } %>
+            <% }) %>
+        
+    </div>
     <% if (!currentUser) { %>
-    <form action="/games/<%= game._id %>/players" method="POST">
-        <input type="text" name="username" placeholder="username">
-        <input type="password" name="password" placeholder="password">
-        <button>Submit</button>
-    </form>
+    
+    <div class="ui container">
+        <h4>Sign Up! </h4>
+        <form class="ui form" action="/games/<%= game._id %>/players" method="POST">
+            <input type="text" name="username" placeholder="username">
+            <input type="password" name="password" placeholder="password">
+            <div class="inline fields">
+                <label>Which team do you want to join?</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="teamName" value='<%= game.teamOne %>'>
+                        <label>
+                            <%= game.teamOne %>
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="teamName" value='<%= game.teamTwo %>'>
+                        <label>
+                            <%= game.teamTwo %>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button>Submit</button>
+        </form>
+    </div>
     <% } %>
 <% include ../partials/footer %>

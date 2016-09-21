@@ -5,7 +5,7 @@ var playerSchema = new mongoose.Schema({
     username: String,
     password: String,
     isManager: Boolean,
-    team: String,
+    teamName: String,
     gameSession: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Game"

@@ -7,18 +7,12 @@ var express     = require('express'),
 //RESTfult ROUTES
 
 //INDEX ROUTE
-
 router.get('/', function(req, res) {
-    res.redirect('/players');
-});
-router.get('/players', function(req, res) {
+    res.redirect('/index'); 
+})
+
+router.get('/index', function(req, res) {
     res.render('index');
-});
-
-//NEW ROUTE 
-router.get('/players/new', function(req, res) {
-
-    res.render('players/new');
 });
 
 //CREATE ROUTE 
@@ -32,7 +26,8 @@ router.post('/games/:id/players', function(req, res) {
             var newPlayer = new Player( {
                 username: req.body.username,
                 gameSession: req.params.id,
-                pin: game.pin
+                pin: game.pin,
+                teamName: req.body.teamName
             } );
             newPlayer.save();
             game.player.push(newPlayer);
@@ -45,7 +40,7 @@ router.post('/games/:id/players', function(req, res) {
                 }
                 passport.authenticate('local')(req, res, function() {
                     //req.flash('success', "Welcome to the Celebrity Game" + user.username);
-                    res.redirect('/players');
+                    res.redirect('/games/' + req.params.id);
                 });
             });
         }

@@ -5,7 +5,7 @@ var gameSchema = new mongoose.Schema({
     teamOne: String,
     teamTwo: String,
     entryNumber: Number,
-    pin: Number,
+    pin: String,
     player: [
         {
             type: mongoose.Schema.Types.ObjectId,
