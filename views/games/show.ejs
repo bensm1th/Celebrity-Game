@@ -61,4 +61,12 @@
             </form>
         </div>
     <% } %>
+    <% if (currentUser && currentUser.names.length !== 0) { %>
+    <div class="ui container">
+        <h1>GAME IS ABOUT TO START!</h1>
+        <h4>My Celeb Names</h4>
+            
+    </div>
+        
+    <% } %>
 <% include ../partials/footer %>
