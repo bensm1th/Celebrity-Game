@@ -12,12 +12,12 @@ var gameSchema = new mongoose.Schema({
             ref: 'Player'
         }
     ],
-    names: {
+    names: [{
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Name'
         },
-    }
+    }]
 });
 
 

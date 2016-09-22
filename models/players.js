@@ -4,13 +4,19 @@ var mongoose                = require('mongoose'),
 var playerSchema = new mongoose.Schema({
     username: String,
     password: String,
-    isManager: Boolean,
+    isManager: {type: Boolean, default: false},
     teamName: String,
     gameSession: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Game"
     },
-    pin: String
+    pin: String,
+    names: [{
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Name'
+        }
+    }]
 });
 
 playerSchema.plugin(passportLocalMongoose);

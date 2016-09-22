@@ -1,8 +1,9 @@
-var express = require('express'),
-    router  = express.Router( {mergeParams: true} ),
-    Player  = require('../models/players'),
-    Game    = require('../models/games'),
-    Team    = require('../models/teams');
+var express     = require('express'),
+    router      = express.Router( {mergeParams: true} ),
+    Player      = require('../models/players'),
+    Game        = require('../models/games'),
+    Team        = require('../models/teams'),
+    passport    = require('passport');
 
 //RESTful ROUTES
 //INDEX 
@@ -21,6 +22,8 @@ router.get('/games', function(req, res) {
 router.get('/games/new', function(req, res) {
     res.render('games/newGame');
 });
+
+
 //CREATE 
 router.post('/games/new', function(req, res) {
     var playerNumber = req.body.playerNumber;
@@ -43,12 +46,35 @@ router.post('/games/new', function(req, res) {
                 }
             }
             Team.collection.insert(teams, createTeamsCb);
-            
+
+            var newPlayer = new Player( {
+                username: req.body.username,
+                gameSession: newlyCreatedGame.id,
+                pin: newlyCreatedGame.pin,
+                isManager: true
+            } );
+
+            newPlayer.save();
+            newlyCreatedGame.player.push(newPlayer);
+            newlyCreatedGame.save();
+            Player.register(newPlayer, req.body.password, function(err, player) {
+                if (err) {
+                    console.log(err);
+                    //req.flash('error', err.message);
+                    return res.render('index');
+                }
+                passport.authenticate('local')(req, res, function() {
+                    //req.flash('success', "Welcome to the Celebrity Game" + user.username);
+                    res.redirect('/games/' + newlyCreatedGame._id);
+                });
+            });
             //req.flash('success', 'You created a new Celebrity Game!');
-            res.redirect('/games/' +newlyCreatedGame._id);
+            
         }
     });
 });
+
+
 //SHOW 
 router.get('/games/:id', function(req, res) {
     Game.findById(req.params.id, function(err, foundGame) {

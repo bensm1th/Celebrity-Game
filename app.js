@@ -13,7 +13,8 @@ var express         = require('express'),
     Game            = require('./models/games'),
     //ADD ROUTEs
     playerRoutes    = require('./routes/player'),
-    gameRoutes      = require('./routes/game');
+    gameRoutes      = require('./routes/game'),
+    namesRoutes     = require('./routes/names');
 
 mongoose.connect(url);
 
@@ -46,6 +47,7 @@ app.use(function(req, res, next) {
 
 app.use(playerRoutes);
 app.use(gameRoutes);
+app.use(namesRoutes);
 
 app.listen(port, function() {
     console.log('celebrity_game is listening on port ' + port)

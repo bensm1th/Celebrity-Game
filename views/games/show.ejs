@@ -49,4 +49,16 @@
         </form>
     </div>
     <% } %>
+
+    <% if (currentUser && currentUser.names.length === 0) { %>
+        <div class="ui container">
+            <form class="ui form" action="/games/<%= game._id %>/names" method="POST">
+                <% for (var i = 0; i < game.entryNumber; i++) { %>
+                    <input id="celebInput" type="text" name="name[]" placeholder="Celebrity Name <%= i + 1 %>">
+                <% } %>
+                
+                    <button>Submit</button>
+            </form>
+        </div>
+    <% } %>
 <% include ../partials/footer %>

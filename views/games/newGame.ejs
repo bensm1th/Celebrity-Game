@@ -1,6 +1,13 @@
 <% include ../partials/header %>
-    <h1>Create Setting for New Celebrity Game</h1>
-    <form action="" method="POST">
+    
+    <form action="/games/new" method="POST">
+        <h1> Manager's Username and Password </h1>
+
+        <input type="text" name="username" placeholder="username">
+        <input type="password" name="password" placeholder="password">
+
+        <h1>New Celebrity Game Setting</h1>
+
         <input type="text" name="playerNumber" placeholder="max number of players">
         <input type="text" name="teamOne" placeholder="Team one name">
         <input type="text" name="teamTwo" placeholder="Team two name">

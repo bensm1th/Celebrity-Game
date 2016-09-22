@@ -11,6 +11,11 @@
             <a href="/" class="active item">
                 Home
             </a>
+            <% if (!currentUser === undefined) { %>
+            <a href="/games/<%= currentUser.gameSession %>" class="active item">
+                My Game
+            </a>
+            <% } %>
             <div class="right menu">
                  <% if (!currentUser) { %>
                 <a href="/players/new" class="ui item">
