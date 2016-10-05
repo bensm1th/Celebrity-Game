@@ -1,5 +1,7 @@
 var express         = require('express'),
     app             = express(),
+    http            = require('http').Server(app),
+    io              = require('socket.io')(http),
     bodyParser      = require('body-parser'),
     mongoose        = require('mongoose'),
     passport        = require('passport'),
@@ -50,6 +52,13 @@ app.use(playerRoutes);
 app.use(gameRoutes);
 app.use(namesRoutes);
 
-app.listen(port, function() {
+io.on('connection', function(client) {
+    console.log('a user connected');
+    client.on('join', function(data) {
+        console.log(data);
+    });
+});
+
+http.listen(port, function() {
     console.log('celebrity_game is listening on port ' + port)
 });
