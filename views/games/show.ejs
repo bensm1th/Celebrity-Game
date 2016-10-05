@@ -50,7 +50,7 @@
     </div>
     <% } %>
 
-    <% if (currentUser && currentUser.names.length === 0) { %>
+    <% if (currentUser && currentUser.names.length === 0 && currentUser.pin == game.pin) { %>
         <div class="ui container">
             <form class="ui form" action="/games/<%= game._id %>/names" method="POST">
                 <% for (var i = 0; i < game.entryNumber; i++) { %>
@@ -65,7 +65,9 @@
     <div class="ui container">
         <h1>GAME IS ABOUT TO START!</h1>
         <h4>My Celeb Names</h4>
-            
+            <% names.forEach(name=> { %>
+                <li> <%= name %> </li>
+            <% }); %>
     </div>
         
     <% } %>

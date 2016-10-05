@@ -12,6 +12,7 @@ var express         = require('express'),
     Player          = require('./models/players'),
     Game            = require('./models/games'),
     //ADD ROUTEs
+    clientRoutes    = require('./routes/clientHandlers'),
     playerRoutes    = require('./routes/player'),
     gameRoutes      = require('./routes/game'),
     namesRoutes     = require('./routes/names');
@@ -44,7 +45,7 @@ app.use(function(req, res, next) {
     res.locals.success = req.flash('success');
     next();
 });
-
+app.use(clientRoutes);
 app.use(playerRoutes);
 app.use(gameRoutes);
 app.use(namesRoutes);

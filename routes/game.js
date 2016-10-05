@@ -3,6 +3,7 @@ var express     = require('express'),
     Player      = require('../models/players'),
     Game        = require('../models/games'),
     Team        = require('../models/teams'),
+    Name        = require('../models/names'),
     passport    = require('passport');
 
 //RESTful ROUTES
@@ -42,7 +43,7 @@ router.post('/games/new', function(req, res) {
                 if (err) {
                     console.log(err) 
                 } else {
-                     console.log(teams);
+                     //console.log(teams);
                 }
             }
             Team.collection.insert(teams, createTeamsCb);
@@ -81,18 +82,43 @@ router.get('/games/:id', function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            var playerNames = [];
+            if(req.user && req.user.names.length>0) {
+                var playerObjects = [];
+                for (var i = 0; i < foundGame.entryNumber; i++) {
+                    playerObjects.push(req.user.names[i])
+                }
+                Name.find({
+                    '_id': { $in: playerObjects}
+                }, function(err, players) {
+                    for (var i = 0; i < foundGame.entryNumber; i++) {
+                        playerNames.push(players[i].name);
+                    }
+                    var playerIds = [];
+                    foundGame.player.forEach(id=>{
+                        playerIds.push(id);
+                    });
+                    Player.find({
+                        '_id': { $in: playerIds}
+                    }, function(err, players) {
+                        res.render('games/show', {game: foundGame, players: players, names: playerNames});
+                    });
+                });
+            }
             var playerIds = [];
-            foundGame.player.forEach(id=>{
-                playerIds.push(id);
-            });
-            Player.find({
-                '_id': { $in: playerIds}
-            }, function(err, players) {
-                res.render('games/show', {game: foundGame, players: players});
-            });
+                    foundGame.player.forEach(id=>{
+                        playerIds.push(id);
+                    });
+                    Player.find({
+                        '_id': { $in: playerIds}
+                    }, function(err, players) {
+                        res.render('games/show', {game: foundGame, players: players, names: playerNames});
+                    });
         }
     });
 });
+
+
 //EDIT
 //UPDATE
 //DESTROY
